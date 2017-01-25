@@ -13,7 +13,7 @@
 // Constructor.
 Hair::Hair( HairType _type, HairStyle _style, unsigned int _length, std::string _runsOn, std::string HAIR_OFF ):Object3D(){
 
-    
+
     // Declarations.
     unsigned int i, remainder;
     Vector3D aux;
@@ -112,7 +112,7 @@ Hair::Hair( HairType _type, HairStyle _style, unsigned int _length, std::string 
     glBindBufferARB( GL_ARRAY_BUFFER, vbo );
     glBufferDataARB( GL_ARRAY_BUFFER, vertices.size() * sizeof( Vector3D ), &vertices[0], GL_DYNAMIC_DRAW );
     glBindBufferARB( GL_ARRAY_BUFFER, 0 );
-    
+
     if( glIsBuffer( ibo ) )
         glDeleteBuffersARB( 1, &ibo );
     glGenBuffersARB( 1, &ibo );
@@ -213,7 +213,7 @@ void Hair::computeCustomDraw(){
 
     unsigned int i, l;
     std::vector<Vector3D> aux, normals_aux, finalVertices, finalNormals;
-    
+
     finalVertices = std::vector<Vector3D>();
     finalNormals = std::vector<Vector3D>();
 
@@ -277,10 +277,10 @@ void Hair::computeCustomDraw(){
 }
 
 void Hair::draw( Vector3D color ){
-    
+
     if( !visible )
         return;
-    
+
     glDisable( GL_COLOR_MATERIAL );
     glMatrixMode( GL_MODELVIEW );
     glPushMatrix();
@@ -300,10 +300,10 @@ void Hair::draw( Vector3D color ){
     glMaterialfv( GL_FRONT_AND_BACK, GL_DIFFUSE, Vector4D( color.x, color.y, color.z, 1 ).Array() );
     glMaterialfv( GL_FRONT_AND_BACK, GL_AMBIENT, Vector4D( color.x, color.y, color.z, 1 ).Array() );
     // glMaterialfv( GL_FRONT_AND_BACK, GL_SPECULAR, Vector4D( HAIR_COLOR, 1 ).Array() );
-    
+
     // Color.
     glColor3f( color.x, color.y, color.z );
-    
+
     // VBO update and draw.
     glBindBufferARB( GL_ARRAY_BUFFER, vbo );
     if( runsOn == "CPU" )
@@ -319,7 +319,7 @@ void Hair::draw( Vector3D color ){
     glBindBufferARB( GL_ARRAY_BUFFER, 0 );
     glBindBufferARB( GL_ELEMENT_ARRAY_BUFFER, 0 );
     //*/
-    
+
     /* Traditional draw.
     unsigned int i;
     glBegin( GL_LINES );
@@ -336,10 +336,10 @@ void Hair::draw( Vector3D color ){
 }
 
 void Hair::draw(){
-    
+
     if( !visible )
         return;
-    
+
     glDisable( GL_COLOR_MATERIAL );
     glMatrixMode( GL_MODELVIEW );
     glPushMatrix();
@@ -359,10 +359,10 @@ void Hair::draw(){
     glMaterialfv( GL_FRONT_AND_BACK, GL_DIFFUSE, Vector4D( HAIR_COLOR, 1 ).Array() );
     glMaterialfv( GL_FRONT_AND_BACK, GL_AMBIENT, Vector4D( HAIR_COLOR, 1 ).Array() );
     // glMaterialfv( GL_FRONT_AND_BACK, GL_SPECULAR, Vector4D( HAIR_COLOR, 1 ).Array() );
-    
+
     // Color.
     glColor3f( HAIR_COLOR );
-    
+
     // VBO update and draw.
     glBindBufferARB( GL_ARRAY_BUFFER, vbo );
     if( runsOn == "CPU" )
@@ -378,7 +378,7 @@ void Hair::draw(){
     glBindBufferARB( GL_ARRAY_BUFFER, 0 );
     glBindBufferARB( GL_ELEMENT_ARRAY_BUFFER, 0 );
     //*/
-    
+
     /* Traditional draw.
     unsigned int i;
     glBegin( GL_LINES );
@@ -409,7 +409,7 @@ float Hair::collisionOffsetAfterWind( Vector3D vertex, Vector3D referenceVertex,
 void Hair::restoreFromCollision( Vector3D &vertex, Vector3D previousVertex, Vector3D referenceVertex ){
     // Declarations.
     float collisionOffset_v;
-    
+
     // Collision with mannequin.
     collisionOffset_v = collisionOffset( vertex, referenceVertex );
     if( collisionOffset_v > 0 ){
@@ -424,7 +424,7 @@ void Hair::restoreFromCollision( Vector3D &vertex, Vector3D previousVertex, Vect
 }
 
 void Hair::fall( Vector3D &vertex, Vector3D copy, Vector3D referenceVertex, float fallSpeed ){
-    // If it's standing up    
+    // If it's standing up
     if( vertex.y > referenceVertex.y ){
         // Get it away from the mannequin.
         vertex += ( copy - upsizedCenterOfGravity ).normalize() * fallSpeed;

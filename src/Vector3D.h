@@ -11,7 +11,7 @@
 #ifndef Vector3D_H
 #define Vector3D_H
 
-#pragma once
+
 
 #include "HeadersAndDefines.h"
 

@@ -11,7 +11,7 @@
 #ifndef MANNEQUIN_H
 #define MANNEQUIN_H
 
-#pragma once
+
 
 #include "HeadersAndDefines.h"
 #include "offLoader.h"

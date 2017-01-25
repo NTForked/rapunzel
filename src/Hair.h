@@ -11,7 +11,7 @@
 #ifndef HAIR_H
 #define HAIR_H
 
-#pragma once
+
 
 #include "HeadersAndDefines.h"
 #include "offLoader.h"

@@ -105,7 +105,7 @@ CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
 am_rapunzel_OBJECTS = rapunzel-bmpLoader.$(OBJEXT) \
-	rapunzel-Camera.$(OBJEXT) rapunzel-Flor.$(OBJEXT) \
+	rapunzel-Camera.$(OBJEXT) rapunzel-Floor.$(OBJEXT) \
 	rapunzel-Hair.$(OBJEXT) rapunzel-Light.$(OBJEXT) \
 	rapunzel-main.$(OBJEXT) rapunzel-Mannequin.$(OBJEXT) \
 	rapunzel-Object3D.$(OBJEXT) rapunzel-offLoader.$(OBJEXT) \
@@ -321,12 +321,12 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 rapunzel_SOURCES = bmpLoader.cpp bmpLoader.h Camera.cpp Camera.h \
-	Flor.cpp Floor.h Hair.cpp Hair.h HeadersAndDefines.h kernel.cu \
-	Light.cpp Light.h main.cpp Mannequin.cpp Mannequin.h \
+	Floor.cpp Floor.h Hair.cpp Hair.h HeadersAndDefines.h \
+	kernel.cu Light.cpp Light.h main.cpp Mannequin.cpp Mannequin.h \
 	Object3D.cpp Object3D.h offLoader.cpp offLoader.h \
 	shaderLoader.cpp shaderLoader.h Vector2D.h Vector3D.h \
 	Vector4D.h wglew.h
-rapunzel_CXXFLAGS = -O3 -g -Wall -Werror -Wpedantic -fpic
+rapunzel_CXXFLAGS = -O3 -g -Wall -Werror -Wpedantic -lglut -lGL -lGLU
 all: all-am
 
 .SUFFIXES:
@@ -421,7 +421,7 @@ distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rapunzel-Camera.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rapunzel-Flor.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rapunzel-Floor.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rapunzel-Hair.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rapunzel-Light.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rapunzel-Mannequin.Po@am__quote@
@@ -480,19 +480,19 @@ rapunzel-Camera.obj: Camera.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(rapunzel_CXXFLAGS) $(CXXFLAGS) -c -o rapunzel-Camera.obj `if test -f 'Camera.cpp'; then $(CYGPATH_W) 'Camera.cpp'; else $(CYGPATH_W) '$(srcdir)/Camera.cpp'; fi`
 
-rapunzel-Flor.o: Flor.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(rapunzel_CXXFLAGS) $(CXXFLAGS) -MT rapunzel-Flor.o -MD -MP -MF $(DEPDIR)/rapunzel-Flor.Tpo -c -o rapunzel-Flor.o `test -f 'Flor.cpp' || echo '$(srcdir)/'`Flor.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/rapunzel-Flor.Tpo $(DEPDIR)/rapunzel-Flor.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='Flor.cpp' object='rapunzel-Flor.o' libtool=no @AMDEPBACKSLASH@
+rapunzel-Floor.o: Floor.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(rapunzel_CXXFLAGS) $(CXXFLAGS) -MT rapunzel-Floor.o -MD -MP -MF $(DEPDIR)/rapunzel-Floor.Tpo -c -o rapunzel-Floor.o `test -f 'Floor.cpp' || echo '$(srcdir)/'`Floor.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/rapunzel-Floor.Tpo $(DEPDIR)/rapunzel-Floor.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='Floor.cpp' object='rapunzel-Floor.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(rapunzel_CXXFLAGS) $(CXXFLAGS) -c -o rapunzel-Flor.o `test -f 'Flor.cpp' || echo '$(srcdir)/'`Flor.cpp
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(rapunzel_CXXFLAGS) $(CXXFLAGS) -c -o rapunzel-Floor.o `test -f 'Floor.cpp' || echo '$(srcdir)/'`Floor.cpp
 
-rapunzel-Flor.obj: Flor.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(rapunzel_CXXFLAGS) $(CXXFLAGS) -MT rapunzel-Flor.obj -MD -MP -MF $(DEPDIR)/rapunzel-Flor.Tpo -c -o rapunzel-Flor.obj `if test -f 'Flor.cpp'; then $(CYGPATH_W) 'Flor.cpp'; else $(CYGPATH_W) '$(srcdir)/Flor.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/rapunzel-Flor.Tpo $(DEPDIR)/rapunzel-Flor.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='Flor.cpp' object='rapunzel-Flor.obj' libtool=no @AMDEPBACKSLASH@
+rapunzel-Floor.obj: Floor.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(rapunzel_CXXFLAGS) $(CXXFLAGS) -MT rapunzel-Floor.obj -MD -MP -MF $(DEPDIR)/rapunzel-Floor.Tpo -c -o rapunzel-Floor.obj `if test -f 'Floor.cpp'; then $(CYGPATH_W) 'Floor.cpp'; else $(CYGPATH_W) '$(srcdir)/Floor.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/rapunzel-Floor.Tpo $(DEPDIR)/rapunzel-Floor.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='Floor.cpp' object='rapunzel-Floor.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(rapunzel_CXXFLAGS) $(CXXFLAGS) -c -o rapunzel-Flor.obj `if test -f 'Flor.cpp'; then $(CYGPATH_W) 'Flor.cpp'; else $(CYGPATH_W) '$(srcdir)/Flor.cpp'; fi`
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(rapunzel_CXXFLAGS) $(CXXFLAGS) -c -o rapunzel-Floor.obj `if test -f 'Floor.cpp'; then $(CYGPATH_W) 'Floor.cpp'; else $(CYGPATH_W) '$(srcdir)/Floor.cpp'; fi`
 
 rapunzel-Hair.o: Hair.cpp
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(rapunzel_CXXFLAGS) $(CXXFLAGS) -MT rapunzel-Hair.o -MD -MP -MF $(DEPDIR)/rapunzel-Hair.Tpo -c -o rapunzel-Hair.o `test -f 'Hair.cpp' || echo '$(srcdir)/'`Hair.cpp

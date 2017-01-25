@@ -11,7 +11,7 @@
 #ifndef BMP_LOADER_H
 #define BMP_LOADER_H
 
-#pragma once
+
 
 #include "HeadersAndDefines.h"
 

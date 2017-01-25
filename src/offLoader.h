@@ -11,7 +11,7 @@
 #ifndef OFF_LOADER_H
 #define OFF_LOADER_H
 
-#pragma once
+
 
 #include "HeadersAndDefines.h"
 

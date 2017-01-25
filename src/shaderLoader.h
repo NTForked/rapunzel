@@ -1,7 +1,7 @@
 #ifndef _SHADER_LOADER_HPP
 #define _SHADER_LOADER_HPP
 
-#pragma once
+
 #include "HeadersAndDefines.h"
 
 unsigned int loadShader(const std::string &vertex_shader_file, const std::string &fragment_shader_file);

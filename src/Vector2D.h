@@ -11,7 +11,7 @@
 #ifndef Vector2D_H
 #define Vector2D_H
 
-#pragma once
+
 
 #include "HeadersAndDefines.h"
 

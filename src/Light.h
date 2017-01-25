@@ -11,7 +11,7 @@
 #ifndef LIGHT_H
 #define LIGHT_H
 
-#pragma once
+
 
 #include "HeadersAndDefines.h"
 

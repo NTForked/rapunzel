@@ -4,7 +4,7 @@ rapunzel_SOURCES  = bmpLoader.cpp
 rapunzel_SOURCES += bmpLoader.h
 rapunzel_SOURCES += Camera.cpp
 rapunzel_SOURCES += Camera.h
-rapunzel_SOURCES += Flor.cpp
+rapunzel_SOURCES += Floor.cpp
 rapunzel_SOURCES += Floor.h
 rapunzel_SOURCES += Hair.cpp
 rapunzel_SOURCES += Hair.h
@@ -26,7 +26,7 @@ rapunzel_SOURCES += Vector3D.h
 rapunzel_SOURCES += Vector4D.h
 rapunzel_SOURCES += wglew.h
 
-rapunzel_CXXFLAGS  = -O3 -g -Wall -Werror -Wpedantic -fpic
+rapunzel_CXXFLAGS = -O3 -g -Wall -Werror -Wpedantic -lglut -lGL -lGLU
 
 all-local: rapunzel
 	mkdir -p ${abs_top_srcdir}/build

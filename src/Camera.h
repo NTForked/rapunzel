@@ -20,7 +20,7 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
-#pragma once
+
 
 #include "HeadersAndDefines.h"
 
@@ -37,7 +37,7 @@ public:
 
     // Place observer in scene.
     void render();
-    
+
     // Rotations.
     void checkAngle( float &angle);
     void rotateFPS_OX( float angle );

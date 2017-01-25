@@ -11,7 +11,7 @@
 #ifndef Vector4D_H
 #define Vector4D_H
 
-#pragma once
+
 
 #include "HeadersAndDefines.h"
 

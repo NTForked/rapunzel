@@ -25,9 +25,9 @@ std::string bmpLoader::loadBMP( std::string textureFilename ){
         errorHandler( ERROR_CODE5, std::string( "ERROR 5: BMP file " + textureFilename + " doesn't exist." ), "@todo: GetLastErrorAsString()" );
 
     input.read( byte, 54 * sizeof( char ) );
-    offsetToPixelArray = *(int *)&byte[10];
-    width = *(int *)&byte[18];
-    height = *(int *)&byte[22];
+    offsetToPixelArray = byte[10];
+    width = byte[18];
+    height = byte[22];
     size = 3 * width * height;
     data.reserve( size );
     input.seekg( offsetToPixelArray, std::ios::beg );

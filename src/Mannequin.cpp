@@ -11,7 +11,7 @@
 #include "Mannequin.h"
 
 // Constructor.
-Mannequin::Mannequin( MannequinType _type ):Object3D(){
+annequin::Mannequin( MannequinType _type ):Object3D(){
     
     // Declarations.
     unsigned int i;

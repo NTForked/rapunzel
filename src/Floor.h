@@ -11,7 +11,7 @@
 #ifndef FLOOR_H
 #define FLOOR_H
 
-#pragma once
+
 
 #include "HeadersAndDefines.h"
 

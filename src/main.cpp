@@ -30,7 +30,7 @@ struct cudaGraphicsResource *cudaVBO;
 Camera *cam;
 Floor *ground;
 Light *light;
-Mannequin *mannequin;
+annequin *mannequin;
 Hair *hair;
 Vector3D focus, hairColor;
 std::string frameTime, measurementOverheadTime, cpuPhysicsTime, gpuPhysicsTime, cudaTime, gravityText, windText, numberingText, RUNS_ON, HAIR_OFF, measurementStep;
