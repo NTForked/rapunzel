@@ -30,12 +30,12 @@ void offLoader::readOFF( const std::string filename ){
 
     input.open( filename );
     if( !input.is_open() )
-        errorHandler( ERROR_CODE1, std::string( "ERROR 1: Unable to read from file \"" + filename + "\"." ), GetLastErrorAsString() );
+        errorHandler( ERROR_CODE1, std::string( "ERROR 1: Unable to read from file \"" + filename + "\"." ), "TODO: GetLastErrorAsString()" );
 
     std::string line;
     input >> line;
     if( line != "OFF" )
-        errorHandler( ERROR_CODE2, std::string( "ERROR 2: Not and OFF file." ), GetLastErrorAsString() );
+        errorHandler( ERROR_CODE2, std::string( "ERROR 2: Not and OFF file." ), "TODO: GetLastErrorAsString()" );
 
     input >> nOfVertices >> nOfFaces >> nOfEdges;
     for( i = 0; i < nOfVertices; i += 1 ){
@@ -45,7 +45,7 @@ void offLoader::readOFF( const std::string filename ){
     for( i = 0; i < nOfFaces; i += 1 ){
         input >> nOfEdges;
         if( nOfEdges > 3 )
-            errorHandler( ERROR_CODE3, std::string( "ERROR 3: OFF has faces with more than 3 edges." ), GetLastErrorAsString() );
+            errorHandler( ERROR_CODE3, std::string( "ERROR 3: OFF has faces with more than 3 edges." ), "TODO: GetLastErrorAsString()" );
 
         for( j = 0; j < nOfEdges; j += 1 ){
             input >> value;

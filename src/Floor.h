@@ -11,8 +11,6 @@
 #ifndef FLOOR_H
 #define FLOOR_H
 
-
-
 #include "HeadersAndDefines.h"
 
 class Floor : public Object3D{
@@ -34,5 +32,3 @@ public:
 };
 
 #endif
-
-

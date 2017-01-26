@@ -38,7 +38,7 @@ public:
     // Constructor.
     Mannequin( MannequinType type );
 
-    void Mannequin::computeCenterOfGravity();
+    void computeCenterOfGravity();
     void draw();
     void tiltForward( float _rotation );
     void tiltSideways( float _rotation );

@@ -11,8 +11,8 @@
 #include "Mannequin.h"
 
 // Constructor.
-annequin::Mannequin( MannequinType _type ):Object3D(){
-    
+Mannequin::Mannequin( MannequinType _type ):Object3D(){
+
     // Declarations.
     unsigned int i;
 
@@ -34,7 +34,7 @@ annequin::Mannequin( MannequinType _type ):Object3D(){
     vertices = off->finalVertices;
     normals = off->normals;
     computeCenterOfGravity();
-    
+
     /* For "WithFaces".
     for( i = 0; i < vertices.size(); i += 1 ){
         indices.push_back( i );
@@ -67,19 +67,19 @@ annequin::Mannequin( MannequinType _type ):Object3D(){
     glBindBufferARB( GL_ARRAY_BUFFER, vbo );
     glBufferDataARB( GL_ARRAY_BUFFER, vertices.size() * sizeof( Vector3D ), &vertices[0], GL_STATIC_DRAW );
     glBindBufferARB( GL_ARRAY_BUFFER, 0 );
-    
+
     if( glIsBufferARB( nbo ) )
         glDeleteBuffersARB( 1, &nbo );
     glGenBuffersARB( 1, &nbo );
     glBindBufferARB( GL_ARRAY_BUFFER, nbo );
     glBufferDataARB( GL_ARRAY_BUFFER, normals.size() * sizeof( Vector3D ), &normals[0], GL_STATIC_DRAW );
     glBindBufferARB( GL_ARRAY_BUFFER, 0 );
-    
+
     if( glIsBufferARB( ibo ) )
         glDeleteBuffersARB( 1, &ibo );
     glGenBuffersARB( 1, &ibo );
     glBindBufferARB( GL_ELEMENT_ARRAY_BUFFER, ibo );
-    glBufferDataARB( GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof( unsigned int ), &indices[0], GL_STATIC_DRAW );    
+    glBufferDataARB( GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof( unsigned int ), &indices[0], GL_STATIC_DRAW );
     glBindBufferARB( GL_ELEMENT_ARRAY_BUFFER, 0 );
 }
 
@@ -113,7 +113,7 @@ void Mannequin::draw(){
 
     if( !visible )
         return;
-    
+
     glDisable( GL_COLOR_MATERIAL );
     glMatrixMode( GL_MODELVIEW );
     glPushMatrix();
@@ -128,12 +128,12 @@ void Mannequin::draw(){
 
     // Scale.
     glScalef( scale.x, scale.y, scale.z );
-    
+
     // Material settings.
     glMaterialfv( GL_FRONT_AND_BACK, GL_AMBIENT, Vector4D( MANNEQUIN_COLOR, 1 ).Array() );
     glMaterialfv( GL_FRONT_AND_BACK, GL_DIFFUSE, Vector4D( MANNEQUIN_COLOR, 1 ).Array() );
     // glMaterialfv( GL_FRONT_AND_BACK, GL_SPECULAR, Vector4D( MANNEQUIN_COLOR, 1 ).Array() );
-    
+
     // Color.
     glColor3f( MANNEQUIN_COLOR );
 

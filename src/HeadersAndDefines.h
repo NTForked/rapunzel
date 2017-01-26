@@ -22,7 +22,9 @@
 #include <vector>
 #include <string>
 
-#include <GL/gl.h>
+#define GL_GLEXT_PROTOTYPES
+
+#include <GL/freeglut.h>
 #include "Vector2D.h"
 #include "Vector3D.h"
 #include "Vector4D.h"
@@ -214,7 +216,7 @@ const std::string    FUR_OFF                        = "OFF/horseFur.off";
 
 // Unchangeable definitions.
 //> Functions.
-static void errorHandler( int error, std::string personalizedText, std::string officialText );
+//static void errorHandler( int error, std::string personalizedText, std::string officialText );
 static std::string cuGetErrorString( CUresult cudaResult );
 #define                vertices( i, l )            vertices[( i ) * length + ( l )]
 #define                internal_vertices( i, l )    vertices[( i ) * length + ( l )]
@@ -295,9 +297,10 @@ const unsigned char KEY_W_LOWER                    = 0x77;
 const unsigned char KEY_X_LOWER                    = 0x78;
 const unsigned char KEY_Y_LOWER                    = 0x79;
 const unsigned char KEY_Z_LOWER                    = 0x7a;
-/*
+
 // Handle any type of errors given the error number and the readable error string.
 static void errorHandler( int error, std::string personalizedText, std::string officialText ){
+    /*
     HANDLE hStdout;
     // @todo: hStdout = GetStdHandle( STD_OUTPUT_HANDLE );
     // @todo: SetConsoleTextAttribute( hStdout, FOREGROUND_RED | FOREGROUND_INTENSITY );
@@ -313,13 +316,14 @@ static void errorHandler( int error, std::string personalizedText, std::string o
         std::cerr << "N/A" << std::endl;
     else
         std::cerr << officialText << std::endl;
-    // @todo: SetConsoleTextAttribute( hStdout, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_INTENSITY );
-    //std::cin >> personalizedText;
-    //exit( error );
+    SetConsoleTextAttribute( hStdout, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_INTENSITY );
+    std::cin >> personalizedText;
+    exit( error );
+    */
 }
-*/
+
 // Get CUDA error in readable format.
-static std::string cuGetErrorString( CUresult cudaResult ){
+static std::string cuGetErrorString( CUresult cudaResult ) {
     switch( cudaResult ){
         case CUDA_SUCCESS:
             return std::string( "CUDA_SUCCESS" );

@@ -31,7 +31,7 @@ __device__ float collisionOffsetAfterWind( Vector3D vertex, Vector3D referenceVe
 __device__ void restoreFromCollision( Vector3D &vertex, Vector3D previousVertex, Vector3D referenceVertex, Vector3D centerOfGravity ){
     // Declarations.
     float collisionOffset_v;
-    
+
     // Collision with mannequin.
     collisionOffset_v = collisionOffset( vertex, referenceVertex, centerOfGravity );
     if( collisionOffset_v > 0 ){
@@ -46,7 +46,7 @@ __device__ void restoreFromCollision( Vector3D &vertex, Vector3D previousVertex,
 }
 
 __device__ void fall( Vector3D &vertex, Vector3D copy_vertex, Vector3D referenceVertex, Vector3D upsizedCenterOfGravity, Vector3D downsizedCenterOfGravity, float fallSpeed ){
-    // If it's standing up    
+    // If it's standing up
     if( vertex.y > referenceVertex.y ){
         // Get it away from the mannequin.
         vertex += ( copy_vertex - upsizedCenterOfGravity ).normalize() * fallSpeed;
@@ -92,7 +92,7 @@ __global__ void tiltForward( Vector3D* dev_vertices, unsigned int vertices_size,
     // Declarations.
     unsigned int index;
     float cosine, sine, y, z;
-    
+
     index = blockIdx.x * blockDim.x + threadIdx.x;
     if( index < vertices_size ){
         cosine = (float)cos( _rotation * M_PI / 180.0f );
@@ -108,7 +108,7 @@ __global__ void tiltSideways( Vector3D* dev_vertices, unsigned int vertices_size
     // Declarations.
     unsigned int index;
     float cosine, sine, x, y;
-    
+
     index = blockIdx.x * blockDim.x + threadIdx.x;
     if( index < vertices_size ){
         cosine = (float)cos( _rotation * M_PI / 180.0f );
@@ -121,10 +121,10 @@ __global__ void tiltSideways( Vector3D* dev_vertices, unsigned int vertices_size
 }
 
 __global__ void kernel( Vector3D *dev_vertices, Vector3D *dev_copy, unsigned int vertices_size, unsigned int hairLength, unsigned int gravity, Vector3D centerOfGravity, Vector3D hairUpsizedCenterOfGravity, Vector3D hairDownsizedCenterOfGravity, Vector3D windDirection, bool wind, float fallSpeed, float windSpeed, float timeSinceLastSimulation ){
-    
+
     // Declarations.
     unsigned int index, remainder;
-    
+
     // Simulation.
     index = blockIdx.x * blockDim.x + threadIdx.x;
 //    for( i = index * 32; i < index * 32 + 32; i += 1 )
@@ -148,10 +148,10 @@ __global__ void kernel( Vector3D *dev_vertices, Vector3D *dev_copy, unsigned int
 }
 
 __global__ void testKernel( Vector3D *dev_vertices, unsigned int vertices_size, unsigned int hairLength ){
-    
+
     // Declarations.
     unsigned int index, remainder;
-    
+
     // Simulation.
     index = blockIdx.x * blockDim.x + threadIdx.x;
     if( index < vertices_size ){
@@ -167,12 +167,12 @@ __global__ void helloKernel(){
 }
 
 cudaError_t tiltKernelWrapper( Vector3D *dev_vertices, unsigned int vertices_size, unsigned int tiltDirection ){
-    
+
     // Declarations.
     cudaError_t cudaStatus;
     dim3 gridSize, blockSize;
     unsigned int affinity;
-    
+
     // Launch a kernel on the GPU with one thread for each element.
     affinity = 512;
     gridSize = dim3( 1 + vertices_size / affinity, 1, 1 );
@@ -200,13 +200,13 @@ cudaError_t tiltKernelWrapper( Vector3D *dev_vertices, unsigned int vertices_siz
 
 // Helper function for using CUDA to compute stencil operations in parallel.
 cudaError_t kernelWrapper( Vector3D *dev_vertices, unsigned int vertices_size, unsigned int hairLength, unsigned int gravity, Vector3D centerOfGravity, Vector3D upsizedCenterOfGravity, Vector3D downsizedCenterOfGravity, Vector3D windDirection, bool wind, float fallSpeed, float windSpeed, float &time, float timeSinceLastSimulation ){
-    
+
     // Declarations.
     cudaError_t cudaStatus;
     dim3 gridSize, blockSize;
     cudaEvent_t start, stop;
     unsigned int affinity;
-    
+
     cudaStatus = cudaEventCreate( &start );
     if( cudaStatus != cudaSuccess )
         errorHandler( cudaStatus, "cudaEventCreate( &start ) failed.", cudaGetErrorString( cudaStatus ) );
@@ -214,7 +214,7 @@ cudaError_t kernelWrapper( Vector3D *dev_vertices, unsigned int vertices_size, u
     cudaStatus = cudaEventCreate( &stop );
     if( cudaStatus != cudaSuccess )
         errorHandler( cudaStatus, "cudaEventCreate( &stop ) failed.", cudaGetErrorString( cudaStatus ) );
-    
+
     cudaStatus = cudaFree( dev_copy );
     if( cudaStatus != cudaSuccess )
         errorHandler( cudaStatus, "kernel()/cudaFree() failed.", cudaGetErrorString( cudaStatus ) );
@@ -228,12 +228,12 @@ cudaError_t kernelWrapper( Vector3D *dev_vertices, unsigned int vertices_size, u
         errorHandler( cudaStatus, "cudaEventRecord( start, 0 ) failed.", cudaGetErrorString( cudaStatus ) );
 
     cudaMemcpy( dev_copy, dev_vertices, vertices_size * sizeof( Vector3D ), cudaMemcpyDeviceToDevice );
-        
+
     // Launch a kernel on the GPU with one thread for each element.
     affinity = 512;
     gridSize = dim3( 1 + vertices_size / affinity, 1, 1 );
     blockSize = dim3( affinity, 1, 1 );
-    
+
 //    sqrt3_affinity = 8;
 //    pow_3 = pow( vertices_size, 0.33333333333333333333333333333333333333 );
 //    gridSize = dim3( pow_3 / sqrt3_affinity, pow_3 / sqrt3_affinity, pow_3 / sqrt3_affinity );
@@ -253,7 +253,7 @@ cudaError_t kernelWrapper( Vector3D *dev_vertices, unsigned int vertices_size, u
     cudaStatus = cudaEventRecord( stop, 0 );
     if( cudaStatus != cudaSuccess )
         errorHandler( cudaStatus, "cudaEventRecord( stop, 0 ) failed.", cudaGetErrorString( cudaStatus ) );
-    
+
     cudaStatus = cudaEventSynchronize( stop );
     if( cudaStatus != cudaSuccess )
         errorHandler( cudaStatus, "cudaEventSynchronize()1 failed.", cudaGetErrorString( cudaStatus ) );
@@ -261,9 +261,9 @@ cudaError_t kernelWrapper( Vector3D *dev_vertices, unsigned int vertices_size, u
     cudaStatus = cudaEventElapsedTime( &time, start, stop );
     if( cudaStatus != cudaSuccess )
         errorHandler( cudaStatus, "cudaEventElapsedTime() failed.", cudaGetErrorString( cudaStatus ) );
-    
+
 //    cudaMemcpy( dev_vertices, dev_copy, vertices_size * sizeof( Vector3D ), cudaMemcpyDeviceToDevice );
 
-        
+
     return cudaSuccess;
 }

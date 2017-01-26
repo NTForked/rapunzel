@@ -30,7 +30,7 @@ struct cudaGraphicsResource *cudaVBO;
 Camera *cam;
 Floor *ground;
 Light *light;
-annequin *mannequin;
+Mannequin *mannequin;
 Hair *hair;
 Vector3D focus, hairColor;
 std::string frameTime, measurementOverheadTime, cpuPhysicsTime, gpuPhysicsTime, cudaTime, gravityText, windText, numberingText, RUNS_ON, HAIR_OFF, measurementStep;
@@ -83,11 +83,11 @@ void updateGravityText(){
 
 // Start QueryPerformanceCounter.
 void startCounter( unsigned int i ){
-
+/*
     // Declarations.
     LARGE_INTEGER li;
     BOOL success;
-    
+
     success = QueryPerformanceFrequency( &li );
     if( !success )
         errorHandler( ERROR_CODE4, "ERROR 4: QueryPerformanceFrequency failed!", GetLastErrorAsString() );
@@ -99,11 +99,12 @@ void startCounter( unsigned int i ){
         errorHandler( ERROR_CODE7, "ERROR 7: QueryPerformanceCounter failed!", GetLastErrorAsString() );
 
     counter_start[i] = (float)li.QuadPart;
+*/
 }
 
 // End QueryPerformanceCounter and get result.
 float getCounter( unsigned int i ){
-
+/*
     // Declarations.
     LARGE_INTEGER li;
     BOOL success;
@@ -113,6 +114,7 @@ float getCounter( unsigned int i ){
         errorHandler( ERROR_CODE7, "ERROR 7: QueryPerformanceCounter failed!", GetLastErrorAsString() );
 
     return float( li.QuadPart - counter_start[i] ) / pc_frequency[i];
+*/
 }
 
 // Transforms long floating point numbers in 2 decimal floating point numbers.
@@ -185,7 +187,7 @@ void passiveMotion( int x, int y ){
 
 // Keyboard Handler.
 void keyboard( unsigned char key , int x, int y ){
-    
+
     std::ostringstream stream_measurementStep;
     switch( key ){
     case KEY_W_CAPITAL:
@@ -408,14 +410,14 @@ void special( int key , int x, int y ){
 
 // Idle callback function.
 void idle(){
-    
+
     // Declarations.
     float finish, flops, kernelTime, kernelFlops;
     std::ostringstream stream_finish, stream_flops, stream_kernelTime, stream_kernelFlops;
     size_t size;
 
     // std::cout << "Collisions: " << collision( hair, mannequin, hair->centerOfGravity ).size() << std::endl;
-    
+
     // Measurement overhead.
     startCounter( MEASUREMENT_OVERHEAD_TIME );
     finish = getCounter( MEASUREMENT_OVERHEAD_TIME );
@@ -468,7 +470,7 @@ void idle(){
         cudaStatus = cudaGraphicsUnmapResources( 1, &cudaVBO, 0 );
         if( cudaStatus != cudaSuccess )
             errorHandler( cudaStatus, "cudaGraphicsUnmapResources() failed.", cudaGetErrorString( cudaStatus ) );
-        
+
         finish = getCounter( GPU_PHYSICS_TIME );
         if( iteration % MEASUREMENT_STEP == 0 ){
             // CUDA Measurement Time.
@@ -584,7 +586,7 @@ void menu( int value ){
 }
 
 void initGL(){
-    
+
     // Declarations.
     CUdevice cudaDevice;
     // CUcontext cudaContext;
@@ -605,7 +607,7 @@ void initGL(){
         errorHandler( cudaResult, "cuDeviceGetName() failed.", cuGetErrorString( cudaResult ) );
         std::cout << i << ": " << deviceName << std::endl;
     }
-    
+
     // Set CUDA device.
     cudaStatus = cudaSetDevice( 0 );
     if( cudaStatus != cudaSuccess )
@@ -640,7 +642,7 @@ void initGL(){
     windowHandle = glutCreateWindow( "Rapunzel" ); // Main window.
     if( windowHandle != 1 )
         errorHandler( NULL, "glutCreateWindow() failed.", "" );
-    
+
     // Menu.
     glutCreateMenu( menu );
     glutAddMenuEntry( "Black", MENU_BLACK );
@@ -655,12 +657,12 @@ void initGL(){
     glutAttachMenu( GLUT_RIGHT_BUTTON );
 
     // GLEW Initialization.
-    glewExperimental = true;
-    err = glewInit();
-    if( err != GLEW_OK )
-        errorHandler( err, "glewInit() failed.", std::string( (char *)glewGetErrorString( err ) ) );
-    if( !glewIsSupported( "GL_VERSION_2_0 " ) )
-        errorHandler( NULL, "Support for necessary OpenGL extensions missing.", "" );
+    // glewExperimental = true;
+    // err = glewInit();
+    // if( err != GLEW_OK )
+    //     errorHandler( err, "glewInit() failed.", std::string( (char *)glewGetErrorString( err ) ) );
+    // if( !glewIsSupported( "GL_VERSION_2_0 " ) )
+    //     errorHandler( NULL, "Support for necessary OpenGL extensions missing.", "" );
 
     // Prepare CUDA device.
     cudaStatus = cudaDeviceReset();
@@ -697,7 +699,7 @@ void initGL(){
 
     // When window is closed, glutMainLoop immediately returns.
     glutSetOption( GLUT_ACTION_ON_WINDOW_CLOSE, GLUT_ACTION_GLUTMAINLOOP_RETURNS );
-    
+
     // Displaying GL information.
     std::cout << "Renderer: " << glGetString( GL_RENDERER ) << std::endl;
     std::cout << "Vendor: " << glGetString( GL_VENDOR ) << std::endl;
@@ -757,18 +759,18 @@ void initGL(){
 void init(){
 
     // Declarations.
-    HANDLE hStdout;
-    BOOL rv;
+    // HANDLE hStdout;
+    // BOOL rv;
 
     // Initializing vector arrays.
     Vector3D::arr = new float[3];
     Vector4D::arr = new float[4];
-    
+
     // Console colors.
-    hStdout = GetStdHandle( STD_OUTPUT_HANDLE );
-    rv = SetConsoleTextAttribute( hStdout, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_INTENSITY );
-    if( !rv )
-        errorHandler( NULL, "ERROR: SetConsoleTextAttribute() failed.", NULL );
+    // hStdout = GetStdHandle( STD_OUTPUT_HANDLE );
+    // rv = SetConsoleTextAttribute( hStdout, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_INTENSITY );
+    // if( !rv )
+    //    errorHandler( NULL, "ERROR: SetConsoleTextAttribute() failed.", NULL );
 
     // Counter initialization.
     startCounter( FRAME_TIME );
@@ -776,14 +778,14 @@ void init(){
     // Window properties.
     currentX = WINDOW_WIDTH / 2;
     currentY = WINDOW_HEIGHT / 2;
-    
+
     RUNS_ON = "CPU";
     hairColor = Vector3D( RED_HAIR );
     HAIR_OFF = HAIR_OFF4;
     MEASUREMENT_STEP = 1;
     measurementStep = "1";
     textShouldBeDrawn = true;
-    
+
     startCounter( INTER_SIMULATION_TIME );
 
     cudaStatus = cudaDeviceSynchronize();

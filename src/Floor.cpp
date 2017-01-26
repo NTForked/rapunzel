@@ -40,7 +40,7 @@ Floor::Floor() : Object3D(){
     x = dimensions.x / 2.0f;
     y = dimensions.y / 2.0f;
     z = dimensions.z / 2.0f;
-    
+
     // In case I decide I want VBO for this.
     vertices.resize( 8 );
     vertices[0] = Vector3D( -x, -y, -z );
@@ -69,7 +69,7 @@ Floor::Floor() : Object3D(){
     normals[7] = Vector3D( 1.0f, 1.0f, 1.0f );
     for( i = 0; i < normals.size(); i += 1 )
         normals[i] = normals[i].normalize();
-    
+
     indices.resize( 24 );
     indices[0] = 0;
     indices[1] = 1;
@@ -109,13 +109,13 @@ Floor::Floor() : Object3D(){
 
     glGenBuffersARB( 1, &ibo );
     glBindBufferARB( GL_ELEMENT_ARRAY_BUFFER, ibo );
-    glBufferDataARB( GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof( unsigned int ), &indices[0], GL_STATIC_DRAW );    
+    glBufferDataARB( GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof( unsigned int ), &indices[0], GL_STATIC_DRAW );
     glBindBufferARB( GL_ELEMENT_ARRAY_BUFFER, 0 );
-    
+
     surfaceTexture = loadBMP( SURFACE_TEXTURE );
     glBindTexture( GL_TEXTURE_2D, surfaceTexture );
     glBindBufferARB( GL_ARRAY_BUFFER, surfaceTexture );
-    glBufferDataARB( GL_ARRAY_BUFFER, textures.size() * sizeof( Vector2D ), &textures[0], GL_STATIC_DRAW );    
+    glBufferDataARB( GL_ARRAY_BUFFER, textures.size() * sizeof( Vector2D ), &textures[0], GL_STATIC_DRAW );
     glBindBufferARB( GL_ARRAY_BUFFER, 0 );
     glBindTexture( GL_TEXTURE_2D, 0 );
 }
@@ -125,7 +125,7 @@ void Floor::draw(){
 
     if( !visible )
         return;
-    
+
     glDisable( GL_COLOR_MATERIAL );
     glEnable( GL_TEXTURE_2D );
     glMatrixMode( GL_MODELVIEW );
@@ -141,7 +141,7 @@ void Floor::draw(){
 
     // Scale.
     glScalef( scale.x, scale.y, scale.z );
-    
+
     // Material settings.
     glMaterialfv( GL_FRONT_AND_BACK, GL_AMBIENT, Vector4D( MANNEQUIN_COLOR, 1 ).Array() );
     glMaterialfv( GL_FRONT_AND_BACK, GL_DIFFUSE, Vector4D( MANNEQUIN_COLOR, 1 ).Array() );
@@ -162,12 +162,12 @@ void Floor::draw(){
     glEnableClientState( GL_NORMAL_ARRAY );
     glNormalPointer( GL_FLOAT, 12, NULL );
 //    glNormalPointer( GL_FLOAT, offsetof( Mannequin, normals ), NULL );
-    
+
     glBindBufferARB( GL_ARRAY_BUFFER, surfaceTexture );
     glBindTexture( GL_TEXTURE_2D, surfaceTexture );
     glEnableClientState( GL_TEXTURE_COORD_ARRAY );
     glTexCoordPointer( 2, GL_FLOAT, 0, NULL );
-    
+
     glDrawElements( GL_QUADS, indices.size(), GL_UNSIGNED_INT, 0 );
 
     glDisableClientState( GL_VERTEX_ARRAY );
