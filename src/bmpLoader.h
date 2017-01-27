@@ -11,11 +11,9 @@
 #ifndef BMP_LOADER_H
 #define BMP_LOADER_H
 
-
-
 #include "HeadersAndDefines.h"
 
-class bmpLoader{
+class bmpLoader {
 public:
     std::string data;
     int width, height;
@@ -23,7 +21,7 @@ public:
     // Constructor.
     bmpLoader();
 
-    std::string loadBMP( std::string textureFilename );
+    std::string loadBMP(std::string textureFilename);
 };
 
 #endif

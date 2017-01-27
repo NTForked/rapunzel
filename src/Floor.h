@@ -13,7 +13,7 @@
 
 #include "HeadersAndDefines.h"
 
-class Floor : public Object3D{
+class Floor : public Object3D {
 public:
     // Fields.
     Vector3D dimensions;
@@ -27,7 +27,7 @@ public:
     Floor();
 
     // Draw.
-    GLuint loadBMP( const std::string textureFile );
+    GLuint loadBMP(const std::string textureFile);
     void draw();
 };
 

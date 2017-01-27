@@ -11,17 +11,12 @@
 #ifndef MANNEQUIN_H
 #define MANNEQUIN_H
 
-
-
 #include "HeadersAndDefines.h"
 #include "offLoader.h"
 
-enum MannequinType{
-    Human,
-    Animal
-};
+enum MannequinType { Human, Animal };
 
-class Mannequin : public Object3D{
+class Mannequin : public Object3D {
 public:
     // Fields.
     MannequinType type;
@@ -36,12 +31,12 @@ public:
     std::vector<unsigned int> indices;
 
     // Constructor.
-    Mannequin( MannequinType type );
+    Mannequin(MannequinType type);
 
     void computeCenterOfGravity();
     void draw();
-    void tiltForward( float _rotation );
-    void tiltSideways( float _rotation );
+    void tiltForward(float _rotation);
+    void tiltSideways(float _rotation);
 };
 
 #endif

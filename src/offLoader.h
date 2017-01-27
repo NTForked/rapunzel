@@ -11,16 +11,11 @@
 #ifndef OFF_LOADER_H
 #define OFF_LOADER_H
 
-
-
 #include "HeadersAndDefines.h"
 
-enum offType{
-    StraightForward,
-    WithFaces
-};
+enum offType { StraightForward, WithFaces };
 
-class offLoader : public Object3D{
+class offLoader : public Object3D {
 public:
     unsigned int nOfVertices, nOfFaces, nOfEdges;
     std::vector<unsigned int> faces;
@@ -28,9 +23,9 @@ public:
     offType type;
 
     // Constructor.
-    offLoader( offType _type );
+    offLoader(offType _type);
 
-    void readOFF( const std::string filename );
+    void readOFF(const std::string filename);
 };
 
 #endif
