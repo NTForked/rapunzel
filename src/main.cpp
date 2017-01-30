@@ -67,28 +67,23 @@ updateWindText() {
     if (hair->wind) {
         if (hair->windDirection == X) {
             windText =
-                std::string("Wind:                         Blowing from X
-");
+                std::string("Wind:                         Blowing from X\n");
             return;
         } else if (hair->windDirection == MinusX) {
             windText = std::string(
-                "Wind:                         Blowing from MinusX
-");
+                "Wind:                         Blowing from MinusX\n");
             return;
         } else if (hair->windDirection == Z) {
             windText =
-                std::string("Wind:                         Blowing from Z
-");
+                std::string("Wind:                         Blowing from Z\n");
             return;
         } else if (hair->windDirection == MinusZ) {
             windText = std::string(
-                "Wind:                         Blowing from MinusZ
-");
+                "Wind:                         Blowing from MinusZ\n");
             return;
         }
     } else {
-        windText = std::string("Wind:                         Off
-");
+        windText = std::string("Wind:                         Off\n");
         return;
     }
 }
@@ -96,14 +91,11 @@ updateWindText() {
 void
 updateGravityText() {
     if (hair->gravity == GRAVITY_OFF) {
-        gravityText = std::string("Gravity:                      Off
-");
+        gravityText = std::string("Gravity:                      Off\n");
     } else if (hair->gravity == NORMAL_GRAVITY) {
-        gravityText = std::string("Gravity:                      Normal
-");
+        gravityText = std::string("Gravity:                      Normal\n");
     } else if (hair->gravity == NEGATIVE_GRAVITY) {
-        gravityText = std::string("Gravity:                      Negative
-");
+        gravityText = std::string("Gravity:                      Negative\n");
     }
 }
 
@@ -469,8 +461,7 @@ idle() {
         stream_finish << finish;
         measurementOverheadTime = "Measurement overhead time:    " +
                                   limitDecimalsTo2(stream_finish.str()) +
-                                  " us
-";
+                                  " us\n";
     }
 
     // On CPU:
@@ -492,10 +483,8 @@ idle() {
             stream_flops << flops;
             cpuPhysicsTime = "CPU physics time:             " +
                              limitDecimalsTo2(stream_finish.str()) +
-                             " ms
-Raw performance:              " +
-                             limitDecimalsTo2(stream_flops.str()) + " GFLOPS
-";
+                             " ms\nRaw performance:              " +
+                             limitDecimalsTo2(stream_flops.str()) + " GFLOPS";
         }
     }
 
@@ -555,10 +544,8 @@ Raw performance:              " +
             stream_kernelFlops << kernelFlops;
             cudaTime = "CUDA measured physics time:   " +
                        limitDecimalsTo2(stream_kernelTime.str()) +
-                       " ms
-Raw performance:              " +
-                       stream_kernelFlops.str() + " GFLOPS
-";
+                       " ms\nRaw performance:              " +
+                       stream_kernelFlops.str() + " GFLOPS\n";
             // GPU Physics Time
             finish *= 1000.0f;  // Modify here for different order of magnitude.
                                 // Current: ms
@@ -570,10 +557,8 @@ Raw performance:              " +
             stream_flops << flops;
             gpuPhysicsTime = "GPU physics time:             " +
                              limitDecimalsTo2(stream_finish.str()) +
-                             " ms
-Raw performance:              " +
-                             limitDecimalsTo2(stream_flops.str()) + " GFLOPS
-";
+                             " ms\nRaw performance:              " +
+                             limitDecimalsTo2(stream_flops.str()) + " GFLOPS\n";
         }
     }
 
@@ -599,16 +584,10 @@ display() {
 
     drawScene();
     if (textShouldBeDrawn)
-        drawText(measurementOverheadTime + "
-Measurement Step:             " +
-                 measurementStep + "
-" + frameTime + "
-" + cpuPhysicsTime +
-                 "
-" + gpuPhysicsTime + cudaTime + "
-" + numberingText +
-                 "Runs on:                      " + RUNS_ON + "
-" +
+        drawText(measurementOverheadTime + "\nMeasurement Step:             " +
+                 measurementStep + "\n" + frameTime + "\n" + cpuPhysicsTime +
+                 "\n" + gpuPhysicsTime + cudaTime + "\n" + numberingText +
+                 "Runs on:                      " + RUNS_ON + "\n" +
                  gravityText + windText);
 
     // Display time.
@@ -620,10 +599,8 @@ Measurement Step:             " +
         stream_fps << fps;
         frameTime = "Frame time:                   " +
                     limitDecimalsTo2(stream_finish.str()) +
-                    " ms
-Frame rate:                   " +
-                    limitDecimalsTo2(stream_fps.str()) + " fps
-";
+                    " ms\nFrame rate:                   " +
+                    limitDecimalsTo2(stream_fps.str()) + " fps\n";
     }
 
     // Double buffering.
@@ -669,11 +646,8 @@ initScene() {
     hairLengthStream << hair->length;
     numberingText =
         "Mobile Hair Density:          " + nOfHairVerticesStream.str() +
-        "
-Base Hair Density:            " + nOfBaseHairVerticesStream.str() +
-        "
-Hair length:                  " + hairLengthStream.str() + "
-";
+        "\nBase Hair Density:            " + nOfBaseHairVerticesStream.str() +
+        "\nHair length:                  " + hairLengthStream.str() + "\n";
 }
 
 void
@@ -760,7 +734,7 @@ initGL() {
     // GLUT initializations.
     fakeargc = 1;
     fakeargv[0] = "full";
-    fakeargv[1] = NULL;
+    fakeargv[1] = 0;
     glutInit(&fakeargc, fakeargv);
     glutInitDisplayMode(GLUT_RGBA);
     glutInitWindowPosition(WINDOW_STARTING_X, WINDOW_STARTING_Y);

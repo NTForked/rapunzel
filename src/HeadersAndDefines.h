@@ -24,19 +24,14 @@
 
 #define GL_GLEXT_PROTOTYPES
 
-#include "Object3D.h"
+#include <GL/freeglut.h>
 #include "Vector2D.h"
 #include "Vector3D.h"
 #include "Vector4D.h"
+#include "Object3D.h"
 #include "bmpLoader.h"
-#include <GL/freeglut.h>
 // #include <boost/numeric/odeint.hpp>
-/*
-#include "glm\glm.hpp"
-#include "glm\gtc\matrix_transform.hpp"
-#include "glm\gtc	ype_ptr.hpp"
-#include "shaderLoader.h"
-*/
+
 // CUDA header includes
 #include <cuda.h>
 #include <cudaGL.h>
@@ -44,7 +39,7 @@
 #include <cuda_runtime.h>
 #include <device_launch_parameters.h>
 
-// General hair parameters.
+// General hair parameters
 #ifdef __CUDA_ARCH__
 __device__
 #endif
