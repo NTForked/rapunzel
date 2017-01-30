@@ -23,11 +23,14 @@ cuda_objects = kernel.o
 
 cuda_sources = kernel.cu
 
+cxx_flags=-std=c++17 -O3 -Wall -Wextra -Werror -pedantic
+ld_flags=-lglut -lGL -lGLU -lcuda -lcudart
+
 rapunzel: $(objects) $(cuda_objects)
-	g++ -std=c++17 -O3 -o $@ $^ main.cpp -lglut -lGL -lGLU -lcuda -lcudart
+	g++ $(cxx_flags) -o $@ $^ main.cpp $(ld_flags)
 
 $(objects): $(sources)
-	g++ -std=c++17 -O3 -c $^ -lglut -lGL -lGLU -lcuda -lcudart
+	g++ $(cxx_flags) -c $^ $(ld_flags)
 
 $(cuda_objects): $(cuda_sources)
 	nvcc -c $^
@@ -40,4 +43,4 @@ all-local: rapunzel
 clean-local:
 	rm -rf *.o rapunzel
 
-.NOT_PARALLEL: rapunzel $(objects) $(sources) $(cuda_objects) $(cuda_sources)
+.NOTPARALLEL: rapunzel $(objects) $(sources) $(cuda_objects) $(cuda_sources)

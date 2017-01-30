@@ -16,6 +16,7 @@
 #include "HeadersAndDefines.h"
 #include "Light.h"
 #include "Mannequin.h"
+#include <cstring>
 
 float *Vector3D::arr;
 float *Vector4D::arr;
@@ -733,8 +734,8 @@ initGL() {
 
     // GLUT initializations.
     fakeargc = 1;
-    fakeargv[0] = "full";
-    fakeargv[1] = 0;
+    strcpy(fakeargv[0], "full");
+    fakeargv[1] = NULL;
     glutInit(&fakeargc, fakeargv);
     glutInitDisplayMode(GLUT_RGBA);
     glutInitWindowPosition(WINDOW_STARTING_X, WINDOW_STARTING_Y);
@@ -743,7 +744,7 @@ initGL() {
     // Window creation.
     windowHandle = glutCreateWindow("Rapunzel");  // Main window.
     if (windowHandle != 1)
-        errorHandler(NULL, "glutCreateWindow() failed.", "");
+        errorHandler(0, "glutCreateWindow() failed.", "");
 
     // Menu.
     glutCreateMenu(menu);
