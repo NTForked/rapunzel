@@ -102,7 +102,7 @@ updateGravityText() {
 
 // Start QueryPerformanceCounter.
 void
-startCounter(unsigned int i) {
+startCounter(unsigned int /* i */) {
     /*
         // Declarations.
         LARGE_INTEGER li;
@@ -126,7 +126,7 @@ startCounter(unsigned int i) {
 
 // End QueryPerformanceCounter and get result.
 float
-getCounter(unsigned int i) {
+getCounter(unsigned int /* i */) {
     /*
         // Declarations.
         LARGE_INTEGER li;
@@ -139,6 +139,7 @@ getCounter(unsigned int i) {
 
         return float( li.QuadPart - counter_start[i] ) / pc_frequency[i];
     */
+    return 0.0f;
 }
 
 // Transforms long floating point numbers in 2 decimal floating point numbers.
@@ -218,7 +219,7 @@ passiveMotion(int x, int y) {
 
 // Keyboard Handler.
 void
-keyboard(unsigned char key, int x, int y) {
+keyboard(unsigned char key, int /* x */, int /* y */) {
 
     std::ostringstream stream_measurementStep;
     switch (key) {
@@ -352,7 +353,7 @@ keyboard(unsigned char key, int x, int y) {
 
 // Special keyboard Handler.
 void
-special(int key, int x, int y) {
+special(int key, int /* x */, int /* y */) {
 
     switch (key) {
     case GLUT_KEY_UP:
@@ -687,7 +688,7 @@ initGL() {
     // CUcontext cudaContext;
     int count, i, driverVersion;
     char deviceName[100];
-    GLenum err;
+    // GLenum err;
     int fakeargc;
     char *fakeargv[2];
 
@@ -701,40 +702,50 @@ initGL() {
               << " available." << std::endl;
     for (i = 0; i < count; i += 1) {
         cudaResult = cuDeviceGetName(deviceName, 100, i);
-        if (cudaResult != CUDA_SUCCESS)
-            errorHandler(cudaResult, "cuDeviceGetName() failed.",
-                         cuGetErrorString(cudaResult));
+        if (cudaResult != CUDA_SUCCESS){
+            const char *message = new char[1024];
+            cuGetErrorString(cudaResult, &message);
+            errorHandler(cudaResult, "cuDeviceGetName() failed.", message);
+        }
         std::cout << i << ": " << deviceName << std::endl;
     }
 
     // Set CUDA device.
     cudaStatus = cudaSetDevice(0);
-    if (cudaStatus != cudaSuccess)
-        errorHandler(cudaStatus, "cudaSetDevice() failed.",
-                     cudaGetErrorString(cudaStatus));
+    if (cudaResult != CUDA_SUCCESS){
+        const char *message = new char[1024];
+        cuGetErrorString(cudaResult, &message);
+        errorHandler(cudaResult, "cudaSetDevice() failed.", message);
+    }
 
     // Display CUDA driver version.
     cudaResult = cuDeviceGet(&cudaDevice, 0);
-    if (cudaResult != CUDA_SUCCESS)
-        errorHandler(cudaResult, "cuDeviceGet() failed.",
-                     cuGetErrorString(cudaResult));
+    if (cudaResult != CUDA_SUCCESS){
+          const char *message = new char[1024];
+          cuGetErrorString(cudaResult, &message);
+          errorHandler(cudaResult, "cuDeviceGet() failed.", message);
+    }
 
     // Initialize CUDA driver API.
     cudaResult = cuInit(0);
-    if (cudaResult != CUDA_SUCCESS)
-        errorHandler(cudaResult, "cuInit() failed.",
-                     cuGetErrorString(cudaResult));
+    if (cudaResult != CUDA_SUCCESS){
+        const char *message = new char[1024];
+        cuGetErrorString(cudaResult, &message);
+        errorHandler(cudaResult, "cuInit() failed.", message);
+    }
 
     // Display CUDA driver version.
     cudaResult = cuDriverGetVersion(&driverVersion);
-    if (cudaResult != CUDA_SUCCESS)
-        errorHandler(cudaResult, "cuDriverGetVersion() failed.",
-                     cuGetErrorString(cudaResult));
+    if (cudaResult != CUDA_SUCCESS){
+        const char *message = new char[1024];
+        cuGetErrorString(cudaResult, &message);
+        errorHandler(cudaResult, "cuDriverGetVersion() failed.", message);
+    }
     std::cout << "CUDA Version: " << driverVersion << std::endl;
 
     // GLUT initializations.
     fakeargc = 1;
-    strcpy(fakeargv[0], "full");
+    fakeargv[0] = NULL;
     fakeargv[1] = NULL;
     glutInit(&fakeargc, fakeargv);
     glutInitDisplayMode(GLUT_RGBA);
@@ -913,7 +924,7 @@ init() {
 }
 
 int
-main(int argc, char **argv) {
+main() {
     init();
     initGL();
     initScene();

@@ -7,6 +7,7 @@ objects += Mannequin.o
 objects += Object3D.o
 objects += offLoader.o
 objects += shaderLoader.o
+objects += errors.o
 
 sources  = bmpLoader.cpp
 sources += Camera.cpp
@@ -18,12 +19,16 @@ sources += Mannequin.cpp
 sources += Object3D.cpp
 sources += offLoader.cpp
 sources += shaderLoader.cpp
+sources += errors.cpp
 
-cuda_objects = kernel.o
+cuda_objects  = kernel.o
+cuda_objects += errors.o
 
-cuda_sources = kernel.cu
+cuda_sources  = kernel.cu
+cuda_sources += errors.cpp
 
 cxx_flags=-std=c++17 -O3 -Wall -Wextra -Werror -pedantic
+cuda_cxx_flags=-O3 -Werror cross-execution-space-call -Wno-deprecated-gpu-targets
 ld_flags=-lglut -lGL -lGLU -lcuda -lcudart
 
 rapunzel: $(objects) $(cuda_objects)
@@ -33,7 +38,7 @@ $(objects): $(sources)
 	g++ $(cxx_flags) -c $^ $(ld_flags)
 
 $(cuda_objects): $(cuda_sources)
-	nvcc -c $^
+	nvcc $(cuda_cxx_flags) -c $^
 
 all-local: rapunzel
 	mkdir -p ${abs_top_srcdir}/build

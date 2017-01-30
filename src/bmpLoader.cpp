@@ -15,7 +15,6 @@ bmpLoader::bmpLoader() {
 
 std::string
 bmpLoader::loadBMP(std::string textureFilename) {
-
     // Declarations.
     int offsetToPixelArray, size, i;
     std::ifstream input;

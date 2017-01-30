@@ -28,7 +28,7 @@ Light::setLightType(IlluminationType _LightType) {
 
 void
 Light::render(Vector3D position,
-              Vector3D direction) {  // Placing light in scene.
+              Vector3D /* direction */) {  // Placing light in scene.
 
     // Colors.
     glLightfv(GL_LIGHT0 + id, GL_AMBIENT, Vector4D(WHITE_COLOR, 1).Array());

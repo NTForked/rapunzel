@@ -168,8 +168,8 @@ Hair::tiltSideways(float _rotation) {
 Vector3D
 Hair::getNextVertex(Vector3D oldVertex,
                     Vector3D centerOfGravity,
-                    float topHeight,
-                    unsigned int iteration) {
+                    float /* topHeight */,
+                    unsigned int /* iteration */) {
 
     // Declarations.
     Vector3D newVertex;
@@ -190,6 +190,10 @@ Hair::getNextVertex(Vector3D oldVertex,
         newVertex.y = oldVertex.y + (oldVertex.y - centerOfGravity.y) / 5;
         newVertex.z =
             oldVertex.z + (oldVertex.z - centerOfGravity.z) / 5 - 0.1f;
+        break;
+    case Custom:
+        break;
+    default:
         break;
     }
     // if( newVertex.y > topHeight )
@@ -526,11 +530,11 @@ Hair::negativeGravity(Vector3D &vertex,
 
 void
 Hair::blowWind(Vector3D &vertex,
-               Vector3D previousVertex,
-               Vector3D previousPreviousVertex,
+               Vector3D /* previousVertex */,
+               Vector3D /* previousPreviousVertex */,
                float windSpeed,
-               float t,
-               float t0) {
+               float /* t */,
+               float /* t0 */) {
     // Linear.
     vertex += windDirection * windSpeed;
 
